@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %}Overview{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+<!-- AOS CSS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<!-- AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+
+    <section class="intro-section" data-aos="fade-up">
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Ranchers&display=swap");
+        </style>
+        <div class = "big-intro">
+            <h2>World Political Freedom and Expression</h2>
+        </div>
+    </section>
+
+    <section class="quote-section" data-aos="fade-up">
+        <p class="quote-text">
+
+            "Your voice matters. You have the right to say what you think, share information and demand a better world." -Amnesty International
+        </p>
+    </section>
+
+    <section class="content-section" data-aos="fade-up"> 
+        <p class="info-text">
+            Political liberties and freedom of expression are fundamental to democracy, allowing individuals to voice opinions, challenge authority, and influence change. These rights ensure transparency, protect human dignity, and empower citizens to participate in governance, fostering a just, inclusive, and accountable society.
+        </p>
+        <img src="{{ url_for('static', filename='freedom.jpg') }}" style="width: 100%; max-width: 600px; margin-top: 20px;" />
+  
+        </section>
+
+
+
+    <section class="mission-section" data-aos="fade-up">
+      <h3>Mission</h3>
+      <p class="info-text">
+        This platform is dedicated to raising awareness about global civil liberties and digital authoritarianism.
+        Our mission is to inform, educate, and empower individuals by providing accessible visualizations and
+        verified incident data from around the world.
+        By shedding light on repression, we hope to support global efforts
+        toward transparency, accountability, and human rights.
+      </p>
+    </section>
+
+    <section class="about-section" data-aos="fade-up"> 
+      <p>What is digital authoritarianism?</p>
+      <a href="{{ url_for('patterns') }}">
+          <button class="cta-button">Learn More</button>
+      </a>
+    </section>
+
+   
+      <section class = "to-data-visualization" data-aos = "fade-up">
+        <p>What are the civil liberty trends and digital authoritariasm incidents around the world?</p>
+        <a href="{{ url_for('visualization') }}">
+            <button>Explore the map!</button>
+        </a>
+    </section> 
+ 
+    <script>
+        AOS.init();
+    </script>
+{% endblock %}

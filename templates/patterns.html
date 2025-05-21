@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block title %}Overview{% endblock %}
+
+{% block content %}
+   
+   <section id ="patterns">
+
+    <button id="toggleGlossary" aria-expanded="false" aria-controls="glossarySection">
+        Show Mini Glossary
+      </button>
+   
+
+      <section id="glossarySection" class="glossary-section" data-aos="fade-up" style="display:none;">
+           <h3>Mini Glossary</h3>
+           <div class="glossary-grid">
+             <div class="glossary-item tooltip">
+               Censorship
+               <span class="tooltip-text">
+                 The suppression or prohibition of speech, media, or information deemed objectionable or threatening by authorities. <br>(Censorship Definition and Meaning | Collins English Dictionary, n.d.).
+               </span>
+             </div>
+             <div class="glossary-item tooltip">
+               Surveillance
+               <span class="tooltip-text">
+                 Monitoring or close-watch of individuals or groups, often by governments. <br>(Definition of Surveillance, 2019).
+               </span>
+             </div>
+             <div class="glossary-item tooltip">
+               Freedom of Speech
+               <span class="tooltip-text">
+                 The right to express opinions without censorship, restraint, or legal penalty. <br> (Freedom of Speech Definition and Meaning | Collins English Dictionary, n.d.).
+               </span>
+             </div>
+             <div class="glossary-item tooltip">
+               Authoritarianism
+               <span class="tooltip-text">
+                 A governing system characterized by strong central power and limited political freedoms. <br> (Allen, 2024).
+               </span>
+             </div>
+             <div class="glossary-item tooltip">
+              Democracy
+              <span class="tooltip-text">
+                A system of government where the people have the power to choose their leaders and influence decisions, typically through voting and open discourse. <br> (Merriam-Webster, 2025).
+              </span>
+            </div>
+           </div>
+      </section>
+   
+      <script>
+        const toggleBtn = document.getElementById('toggleGlossary');
+        const glossary = document.getElementById('glossarySection');
+   
+        toggleBtn.addEventListener('click', () => {
+          if (glossary.style.display === 'none') {
+            glossary.style.display = 'block';
+            toggleBtn.textContent = 'Hide Mini Glossary';
+            toggleBtn.setAttribute('aria-expanded', 'true');
+          } else {
+            glossary.style.display = 'none';
+            toggleBtn.textContent = 'Show Mini Glossary';
+            toggleBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      </script>
+
+        <h3>What are Civil Liberties?</h3>
+        <p>Civil liberties are the rights that ensure people can be who they are and speak their mind without any government restriction. Without civil liberties, freedom can not exist, and democracies fail. Meaning, civil liberties are essential for a healthy government. They allow people to speak up, hold governments accountable, and live free of coersion. These liberties include freedom of speech and thought, as they will be highlighted on this website (Civil Liberties Union for Europe, n.d.).  </p>
+    
+        <h3>What is Digital Autoritarianism?</h3>
+        <p>Digital auhoritarianism is a means for governments to control citizens via technological means. It is the usage of technology to surveil, control, and repress the people. Digital authoritarianism often undermines the people's rights to expression and democratic freedom (Getting ahead of Digital Repression: Authoritarian Innovation and Democratic Response, 2024). </p>
+        
+        <h3>China's "Great Firewall"</h3>
+        <p>The Great Firewall of China was established in the late 1990s. Is one of the most famous examples of digital authoritarianism. It blocks access to many foreign websites, filters keywords, and monitors internet traffic to control what Chinese citizens can see and say online. By restricting access to information and censoring content, it directly undermines civil liberties such as freedom of speech and the right to freely access information (Weber, 2025).</p>
+        
+        <h3>2024: A record year for internet shutdowns</h3>
+        <p>
+            In 2024, Access Now and the #KeepItOn coalition recorded 296 internet shutdowns in 54 countries, marking a record high and a 35% increase in affected countries from the previous year. These shutdowns, often used during conflicts, protests, and elections, disrupted lives, silenced dissent, and concealed human rights abuses, with 72 incidents linked to such violations. Firsthand accounts from affected individuals—from journalists in Gaza to analysts in Pakistan—highlight how these blackouts isolate communities and endanger lives (Access Now, 2024).
+        </p>
+            
+        
+        <h3>Why It Matters Now</h3>
+        <p>As technological advances grow exponentially and is integrated more into our daily lives, so is it weaponized against the people. What once connected us now isolates us, turned off at the whim of power. Understanding digitial authoritarianism's impact is the first step; raising awareness and demanding accountability is how we help bring it to an end.</p>
+        <h3>What Is Happening In Other Countries?</h3>
+        <a href="{{ url_for('visualization') }}">
+            <button>Explore the map!</button>
+        
+                    
+           
+    </section>
+{% endblock %}

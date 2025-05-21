@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Overview{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X07G3850S0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-X07G3850S0');
+    </script>
+</head>
+<body>
+
+    <header>
+        {% block header %}
+        <h1 class="glitch-title">World Political Freedom and Expression</h1>
+        {% endblock %}
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}" >Home</a></li>
+            <li><a href="{{ url_for('patterns') }}" >Information</a></li>
+            <li><a href="{{ url_for('visualization') }}" >Interactive Map</a></li>
+            <li><a href="{{ url_for('about') }}" >About</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Political Freedom Data </p>
+    </footer>
+
+</body>
+</html>

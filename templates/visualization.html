@@ -1,0 +1,187 @@
+{% extends "layout.html" %}
+
+{% block title %}Overview{% endblock %}
+
+{% block content %}
+    <section>
+        <h2>Interactive Worldmap</h2>
+      
+        <p>Here, you will find the civil liberties scores of certain countries and their respective cases of digital authoritarianism.<br>
+
+            For the graph, 1 shows the greatest level of civil liberties, 7 shows the least level of civil liberties (Freedom House, 2024). <br> 
+            You can see and read more about the digital authoritarianism incidents that occured per country (Advox, 2022).</p>
+            <!--<p>DEBUG: {{ countries }}</p>-->
+        <!--<pre>{{ country_items | pprint }}</pre>-->
+    </section>
+    
+    <section>
+        <h3>Click a country on the globe or find it on the list!</h3>
+        <form id="countryForm">
+            
+            <select name="country" id="countrySelect">
+                {% for country in countries %}
+                    <option value="{{ country.name }}">{{ country.name }}</option>
+                {% endfor %}
+            </select>
+            
+            <button type="submit">Show Graph</button>
+        </form>
+    </section>
+    <script src="{{ url_for('static', filename='globe.js') }}"></script> 
+
+
+
+    <style>
+        #chartdiv {
+          width: 100%;
+          height: 500px;
+          max-width: 100%;
+        }
+        </style>
+        
+        <!-- Resources -->
+        <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+        <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+        <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+        <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+        
+        <script>
+        am5.ready(function() {
+        
+        // Create root element
+        // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+        var root = am5.Root.new("chartdiv");
+        
+        
+        // Set themes
+        // https://www.amcharts.com/docs/v5/concepts/themes/
+        root.setThemes([
+          am5themes_Animated.new(root)
+        ]);
+        
+        
+        // Create the map chart
+        // https://www.amcharts.com/docs/v5/charts/map-chart/
+        var chart = root.container.children.push(am5map.MapChart.new(root, {
+          panX: "rotateX",
+          panY: "rotateY",
+          projection: am5map.geoOrthographic(),
+          paddingBottom: 20,
+          paddingTop: 20,
+          paddingLeft: 20,
+          paddingRight: 20
+        }));
+        
+        
+        // Create main polygon series for countries
+        // https://www.amcharts.com/docs/v5/charts/map-chart/map-polygon-series/
+        var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+          geoJSON: am5geodata_worldLow
+        }));
+        
+        polygonSeries.mapPolygons.template.setAll({
+          tooltipText: "{name}",
+          toggleKey: "active",
+          interactive: true
+        });
+
+        polygonSeries.mapPolygons.template.events.on("click", function(ev) {
+        const clickedCountry = ev.target.dataItem.dataContext.name;
+
+  // Make sure it's one of the countries with data
+        const clickableCountries = ['Brazil', 'Egypt', 'Russia', 'Turkey', 'Zimbabwe', 'Russia,Ukraine', 'India', 'Morocco', 'Sudan', 'El Salvador', 'Tanzania', 'Venezuela', 'Hungary', 'China', 'United States', 'Myanmar', 'Ecuador', 'Philippines', 'Iran', 'Rwanda', 'Kyrgyzstan', 'Cameroon', 'Kenya', 'Kazakhstan'];
+
+        if (clickableCountries.includes(clickedCountry)) {
+    // Update the dropdown to reflect selected country (optional)
+          const select = document.getElementById("countrySelect");
+          for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].value === clickedCountry) {
+              select.selectedIndex = i;
+              break;
+      }
+    }
+
+    // Load the chart
+          loadChartForCountry(clickedCountry);
+          scrollToGraph();
+  }
+});
+
+
+        polygonSeries.mapPolygons.template.adapters.add("fill", function(fill, target) {
+          const clickableCountries = ['Brazil', 'Egypt', 'Russia', 'Türkiye', 'Zimbabwe', 'Russia,Ukraine', 'India', 'Morocco', 'Sudan', 'El Salvador', 'Tanzania', 'Venezuela', 'Hungary', 'China', 'United States', 'China', 'Myanmar', 'Ecuador', 'Philippines', 'Iran', 'Rwanda', 'Kyrgyzstan', 'Cameroon', 'Kenya', 'Kazakhstan']; // List of countries that are clickable
+          const countryName = target.dataItem.dataContext.name; 
+
+          // If the country is not clickable, change the color
+          if (clickableCountries.indexOf(countryName) === -1) {
+            return am5.color(0xcccccc); // Change to gray for unclickable countries
+          } else {
+            return fill; // Keep default color for clickable countries
+          }
+        });
+        
+        polygonSeries.mapPolygons.template.states.create("hover", {
+          fill: root.interfaceColors.get("primaryButtonHover")
+        });
+        
+        
+        // Create series for background fill
+        // https://www.amcharts.com/docs/v5/charts/map-chart/map-polygon-series/#Background_polygon
+        var backgroundSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {}));
+        backgroundSeries.mapPolygons.template.setAll({
+          fill: root.interfaceColors.get("alternativeBackground"),
+          fillOpacity: 0.1,
+          strokeOpacity: 0
+        });
+        backgroundSeries.data.push({
+          geometry: am5map.getGeoRectangle(90, 180, -90, -180)
+        });
+        
+        
+        // Create graticule series
+        // https://www.amcharts.com/docs/v5/charts/map-chart/graticule-series/
+        var graticuleSeries = chart.series.push(am5map.GraticuleSeries.new(root, {}));
+        graticuleSeries.mapLines.template.setAll({ strokeOpacity: 0.1, stroke: root.interfaceColors.get("alternativeBackground") })
+        
+        
+        // Rotate animation
+        chart.animate({
+          key: "rotationX",
+          from: 0,
+          to: 360,
+          duration: 30000,
+          loops: Infinity
+        });
+        
+        
+        // Make stuff animate on load
+        chart.appear(1000, 100);
+        
+        }); // end am5.ready()
+        </script>
+        
+        <!-- HTML -->
+        <div id="chartdiv"></div>
+
+
+    <section>
+            
+            <div id="simpleIncidentList" style="margin-top: 2em;"></div>
+            <h3>Civil Liberties Score Over Time</h3>
+            <canvas id="lineChart" width="800" height="400"></canvas>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
+    <script src="{{ url_for('static', filename='graph.js') }}"></script>
+
+   
+
+    
+   
+
+
+
+
+{% endblock %}
+
