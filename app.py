@@ -2,6 +2,7 @@
 from flask import Flask, render_template, jsonify
 import sqlite3
 import pandas as pd
+from flask_cors import CORS
 
 app = Flask(__name__)
 
@@ -12,7 +13,7 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-#CORS(app, resources={r"/*": {"origins": "*"}}, methods=["GET"]) 
+CORS(app, resources={r"/*": {"origins": "*"}}, methods=["GET"]) 
 @app.route("/")
 def home():
     return render_template("home.html")
@@ -73,7 +74,7 @@ def get_country_data(name):
 })
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port = 5001)
 
 
 
