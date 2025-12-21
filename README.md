@@ -10,7 +10,7 @@ This website aims to raise awareness of civil liberties and digital authoritaria
 **Backend**: Python flask <br>
 **Database**: SQL (relational database that links countries, scores, and cases) <br>
 **Frontend**: HTML, CSS, JavaScript <br>
-**Visualization**: 3D intercative worldmap from: <br>
+**Visualization**: 3D intercative worldmap from: [globe origin](https://www.amcharts.com/demos/rotating-globe/)<br>
 **Analytics**: Google Analytics <br>
 **Data Analysis (In Progress)**: scikit-learn (K-means)
 
@@ -31,6 +31,7 @@ I utilized Google Analytics to gather insights on the usage of the website and i
 
 # Project Status:
 This project is in progress as I'm implementing K-means clustering to group countries by similarity in civil liberty score trajectories. My goal is to identify regional or temporal patterns of repression beyond individual cases.
+
 
 
 
