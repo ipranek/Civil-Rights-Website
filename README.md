@@ -1,18 +1,24 @@
 # Overview (Project in Progress):
 **Live Website:** [Website](https://worldcivilliberties.pythonanywhere.com/) <br>
 This project is an interactive web platform that visualizes global civil liberties scores and documented cases of digital authoritarianism from 1972 to 2024. <br>
-This platform combines relational data modeling, interactive geospacial visualization, and data-driven storytelling to make complex human rights data accessible to a broader audience of educators, researchers, and the general public. 
+This platform combines relational data modeling, interactive geospatial visualization, and data-driven storytelling to make complex human rights data accessible to a broader audience of educators, researchers, and the general public. 
 
 # Motivation: 
 This website aims to raise awareness of civil liberties and digital authoritarianism cases from around the world by connecting long-term civil liberty trends with concrete case-level events. 
 
 # Tech Stack:
 **Backend**: Python flask <br>
-**Database**: SQL (relational database that links countries, scores, and cases) <br>
+**Database**: SQLite (relational database that links countries, scores, and cases) <br>
 **Frontend**: HTML, CSS, JavaScript <br>
-**Visualization**: 3D intercative worldmap from: [globe origin](https://www.amcharts.com/demos/rotating-globe/)<br>
+**Visualization**: 3D interactive worldmap from: [globe origin](https://www.amcharts.com/demos/rotating-globe/)<br>
 **Analytics**: Google Analytics <br>
 **Data Analysis (In Progress)**: scikit-learn (K-means)
+
+# Deployment:
+The site is hosted on PythonAnywhere (free tier) and deploys automatically on every push to `main`.
+-A GitHub Actions workflow (`.github/workflows/deploy.yml`) sends an authenticated POST request to the site's `/deploy` endpoint.
+-The endpoint (`deploy_hook.py` with Flask Blueprint) verifies a shared secret using a constant-time comparison.
+-Endpoint runs `git pull` on the server, and touches the WSGI file to trigger a reload.
 
 # Data:
 **[Civil Liberty Scores](https://freedomhouse.org/report/freedom-world)**: 1972-2024 (country-year level) <br>
@@ -31,6 +37,7 @@ I utilized Google Analytics to gather insights on the usage of the website and i
 
 # Project Status:
 This project is in progress as I'm implementing K-means clustering to group countries by similarity in civil liberty score trajectories. My goal is to identify regional or temporal patterns of repression beyond individual cases.
+
 
 
 
