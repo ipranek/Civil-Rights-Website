@@ -1,0 +1,16 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: #adds run worlflow button on github actions
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: tell PythonAnywhere to pull
+        env:
+          DEPLOY_SECRET: ${{ secrets.DEPLOY_SECRET }}
+        run: |
+          curl --fail -X POST -H "X-Deploy-Secret: $DEPLOY_SECRET" https://worldcivilliberties.pythonanywhere.com/deploy 
