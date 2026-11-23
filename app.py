@@ -3,10 +3,13 @@ from flask import Flask, render_template, jsonify
 import sqlite3
 import pandas as pd
 from flask_cors import CORS
+from deploy_hook import deploy_hook
+
 
 app = Flask(__name__)
 
 DB_PATH = "database/relational_database.db"
+app.register_blueprint(deploy_hook)
 
 def get_db_connection():
     conn = sqlite3.connect("database/relational_database.db")
