@@ -15,9 +15,9 @@ This website aims to raise awareness of civil liberties and digital authoritaria
 **Data Analysis (In Progress)**: scikit-learn (K-means)
 
 # Deployment:
-The site is hosted on PythonAnywhere (free tier) and deploys automatically on every push to `main`.
--A GitHub Actions workflow (`.github/workflows/deploy.yml`) sends an authenticated POST request to the site's `/deploy` endpoint.
--The endpoint (`deploy_hook.py` with Flask Blueprint) verifies a shared secret using a constant-time comparison.
+The site is hosted on PythonAnywhere (free tier) and deploys automatically on every push to `main`.<br>
+-A GitHub Actions workflow (`.github/workflows/deploy.yml`) sends an authenticated POST request to the site's `/deploy` endpoint.<br>
+-The endpoint (`deploy_hook.py` with Flask Blueprint) verifies a shared secret using a constant-time comparison.<br>
 -Endpoint runs `git pull` on the server, and touches the WSGI file to trigger a reload.
 
 # Data:
@@ -37,6 +37,7 @@ I utilized Google Analytics to gather insights on the usage of the website and i
 
 # Project Status:
 This project is in progress as I'm implementing K-means clustering to group countries by similarity in civil liberty score trajectories. My goal is to identify regional or temporal patterns of repression beyond individual cases.
+
 
 
 
